@@ -1,0 +1,19 @@
+{
+  "name": "com.jb.jbrightbehaviortree",
+  "version": "0.1.0",
+  "displayName": "JBright Behaviour tree",
+  "description": "State machine + behaviour tree",
+  "unity": "2021.3",
+  "author": {
+    "name": "Jason Bright",
+    "email": "jasonbright2281@gmail.com",
+    "url": "https://google.com"
+  },
+  "keywords": [
+    "example",
+    "unity",
+    "package"
+  ],
+  "dependencies": {
+  }
+}
