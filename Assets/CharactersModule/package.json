@@ -1,0 +1,19 @@
+{
+  "name": "com.jb.charactersmodule",
+  "version": "0.0.1",
+  "displayName": "Characters Module",
+  "description": "Package provide characters module",
+  "unity": "2021.3",
+  "author": {
+    "name": "Jason Bright",
+    "email": "jasonbright2281@gmail.com",
+    "url": "https://google.com"
+  },
+  "keywords": [
+    "example",
+    "unity",
+    "package"
+  ],
+  "dependencies": {
+  }
+}
