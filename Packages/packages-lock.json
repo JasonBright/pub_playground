@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
     },
+    "com.svermeulen.extenject": {
+      "version": "https://github.com/JasonBright/Zenject-jb-mod.git?path=UnityProject/Assets/Plugins/Zenject",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0077e71add35bf1563c4e8c856cdb44163e60faf"
+    },
     "com.unity.burst": {
       "version": "1.8.13",
       "depth": 1,
