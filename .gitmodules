@@ -1,0 +1,3 @@
+[submodule "Assets/private_playground"]
+	path = Assets/private_playground
+	url = https://github.com/JasonBright/private_playground.git
