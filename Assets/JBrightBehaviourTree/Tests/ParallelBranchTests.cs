@@ -25,5 +25,31 @@ namespace Plugins.JBrightBehaviourTree.Tests
 			tree.Update();
 			Assert.IsTrue( tree.IsExecuting( idle ) );
 		}
+		
+		[Test]
+		public void SkipAllStateInFirstBranchDeep()
+		{
+			var tree = new BehaviourTree();
+			var idle = new Idle();
+
+			var falseState1 = new PlaceholderState( false );
+			var falseState2 = new PlaceholderState( false );
+			var rootOfFalses = new PlaceholderState( true );
+
+			var branch1 = tree.AddBranch( rootOfFalses );
+			{
+				branch1.AddBranch( falseState1 );
+				branch1.AddBranch( falseState2 );
+				
+				var deep = branch1.AddBranch( rootOfFalses );
+				deep.AddBranch( falseState1 );
+				deep.AddBranch( falseState2 );
+			}
+
+			tree.AddBranch( idle );
+			
+			tree.Update();
+			Assert.IsTrue( tree.IsExecuting( idle ) );
+		}
 	}
 }

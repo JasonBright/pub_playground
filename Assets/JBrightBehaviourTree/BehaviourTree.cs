@@ -143,7 +143,14 @@ namespace Plugins.JBrightBehaviourTree
 					{
 						//ныряю дальше
 						var isExecuting = ExecuteRecursive( node.SubNodes, null );
-						return isExecuting;
+						
+						//не смог найти ничего для выполнения в дочерних нодах
+						if (isExecuting == false)
+						{
+							node.State.OnExit();
+							continue;
+						}
+						return true;
 					}
 
 					//стейт работает - выполнение закончено - буду ждать следующего цикла обновления дерева
