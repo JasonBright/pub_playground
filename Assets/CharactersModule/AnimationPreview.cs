@@ -49,7 +49,7 @@ namespace CharactersModule
 		[Button]
 		public async void Play()
 		{
-			animancer().Playable.UnpauseGraph();
+			animancer().Graph.UnpauseGraph();
 			
 			isPlaying = true;
 			if (playingToken != null)
@@ -98,7 +98,7 @@ namespace CharactersModule
 		[Button]
 		public void PlayIdle()
 		{
-			animancer().Playable.UnpauseGraph();
+			animancer().Graph.UnpauseGraph();
 			animancer().Play( idleClip );
 		}
 
@@ -108,8 +108,8 @@ namespace CharactersModule
 			if(playingToken != null)
 				playingToken.Cancel();
 			animancer().Stop();
-			animancer().Playable.DestroyGraph();
-			animancer().Playable.PauseGraph();
+			animancer().Graph.Destroy();
+			animancer().Graph.PauseGraph();
 		}
 
 		// ReSharper disable once InconsistentNaming

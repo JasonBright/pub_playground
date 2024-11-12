@@ -7,6 +7,14 @@
       "dependencies": {},
       "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
     },
+    "com.kybernetik.animancer": {
+      "version": "file:com.kybernetik.animancer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.animation": "1.0.0"
+      }
+    },
     "com.svermeulen.extenject": {
       "version": "https://github.com/JasonBright/Zenject-jb-mod.git?path=UnityProject/Assets/Plugins/Zenject",
       "depth": 0,
