@@ -120,7 +120,7 @@ namespace CharactersModule
 				}
 
 				state = animancer.Play( transition );
-
+				
 				if (state.Events( null, out var sequence ))
 				{
 					foreach (var ev in transition.Clip.events)
@@ -128,6 +128,13 @@ namespace CharactersModule
 						sequence.Add( ev.time / transition.Length, OnHit );
 					}
 					sequence.OnEnd = OnEndCallback;
+				}
+				else
+				{
+					for (var index = 0; index < transition.Clip.events.Length; index++)
+					{
+						state.SharedEvents.SetCallback( index, OnHit );
+					}
 				}
 			}
 			return this;

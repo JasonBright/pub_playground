@@ -172,7 +172,7 @@ namespace CharactersModule
 			{
 				containerInstance.hideFlags = HideFlags.DontSave;
 			}
-			containerInstance.parent = getAnimator().transform;
+			containerInstance.parent = transform;
 			containerInstance.localPosition = Vector3.zero;
 			containerInstance.localRotation = Quaternion.identity;
 			return containerInstance;

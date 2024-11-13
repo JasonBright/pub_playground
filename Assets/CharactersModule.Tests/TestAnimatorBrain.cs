@@ -42,10 +42,14 @@ namespace CharactersModule.Tests
 			StartCoroutine( DoPlayGathering() );
 		}
 
+		private int playcounter;
+
 		IEnumerator DoPlay()
 		{
+			var playIndex = playcounter;
+			playcounter++;
 			var playingAnimation = fighterAnimator.PlayAttack().
-							AddReaction( AnimationReactionType.Hit, () => { Debug.Log( $"Hit from fighter" ); } ).
+							AddReaction( AnimationReactionType.Hit, () => { Debug.Log( $"Hit from fighter {playIndex}" ); } ).
 							Play();
 			yield return playingAnimation.WaitForEnd();
 			Debug.Log( $"fighter end anim" );
