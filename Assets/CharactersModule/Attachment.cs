@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CharactersModule
 {
-	public class AttachmentPreview : MonoBehaviour
+	public class Attachment : MonoBehaviour
 	{
 		public HumanBodyBones Bone;
 		public string subBoneKey;

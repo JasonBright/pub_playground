@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,34 +13,74 @@ namespace CharactersModule
 
 		[SerializeField] private bool specificOffset;
 
+		private List<Attachment> attachments = new(); 
+
 		[Button, HideIf(nameof(specificOffset))]
-		public void Attach(GameObject prefab, HumanBodyBones bone, string subBoneKey = "")
+		public Attachment Attach(GameObject prefab, HumanBodyBones bone, string subBoneKey = "")
 		{
-			Attach( prefab, bone, subBoneKey, Vector3.zero );
+			return Attach( prefab, bone, subBoneKey, Vector3.zero );
 		}
 
 		[Button, ShowIf(nameof(specificOffset))]
-		public void Attach(
+		public Attachment Attach(
 			GameObject prefab,
 			HumanBodyBones bone,
 			string subBoneKey,
 			Vector3 offset)
 		{
-			var attachment = Instantiate( prefab, GetBoneContainerInstance( bone ), false );
+			var instance = Instantiate( prefab, GetBoneContainerInstance( bone ), false );
 			InitAnimationSubBone( bone, subBoneKey );
 			//attachment.transform.localPosition = prefab.transform.position;
 			//attachment.transform.localRotation = prefab.transform.rotation;
 			//maybe it's Editor only
-			var attachmentPreview = attachment.AddComponent<AttachmentPreview>();
-			attachmentPreview.Bone = bone;
-			attachmentPreview.subBoneKey = subBoneKey;
-			attachmentPreview.Offset = offset;
+			var attachment = instance.AddComponent<Attachment>();
+			attachment.Bone = bone;
+			attachment.subBoneKey = subBoneKey;
+			attachment.Offset = offset;
+			if (Application.isPlaying)
+			{
+				attachments.Add( attachment );
+			}
+
+			return attachment;
+		}
+		
+		public void Remove(HumanBodyBones bone)
+		{
+			for (var index = attachments.Count - 1; index >= 0; index--)
+			{
+				Attachment attachment = attachments[ index ];
+				if (attachment.Bone == bone)
+				{
+					attachments.RemoveAt( index );
+					Destroy( attachment.gameObject );
+				}
+			}
+		}
+
+		public void Remove(Attachment attachment)
+		{
+			attachments.Remove( attachment );
+			Destroy(attachment.gameObject);
+		}
+		
+		[Button]
+		public void SetAnimator(Animator animator)
+		{
+			this.animator = animator;
+			foreach (Attachment attachment in attachments)
+			{
+				InitAnimationSubBone( attachment.Bone, attachment.subBoneKey );
+			}
 		}
 
 		private void LateUpdate()
 		{
-			var attachments = GetComponentsInChildren<AttachmentPreview>();
-			foreach (AttachmentPreview attachment in attachments)
+			if (Application.isPlaying == false)
+			{
+				attachments = new List<Attachment>(GetComponentsInChildren<Attachment>());
+			}
+			foreach (Attachment attachment in attachments)
 			{
 				//copy bone position
 				var boneTransform = getAnimator().GetBoneTransform( attachment.Bone );
@@ -138,6 +178,17 @@ namespace CharactersModule
 			return containerInstance;
 		}
 
-		private Animator getAnimator() => GetComponent<Animator>();
+		private Animator getAnimator()
+		{
+			if (Application.isPlaying)
+			{
+				if (animator == null)
+				{
+					animator = GetComponentInChildren<Animator>();
+				}
+				return animator;
+			}
+			return GetComponentInChildren<Animator>();
+		}
 	}
 }
