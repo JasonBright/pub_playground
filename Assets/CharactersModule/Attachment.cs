@@ -7,5 +7,6 @@ namespace CharactersModule
 		public HumanBodyBones Bone;
 		public string subBoneKey;
 		public Vector3 Offset;
+		public bool CopyScale;
 	}
 }

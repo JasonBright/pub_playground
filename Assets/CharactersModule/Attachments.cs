@@ -87,7 +87,8 @@ namespace CharactersModule
 				var containerInstance = GetBoneContainerInstance( attachment.Bone );
 				containerInstance.position = boneTransform.position;
 				containerInstance.rotation = boneTransform.rotation;
-				containerInstance.localScale = boneTransform.lossyScale;
+				if(attachment.CopyScale)
+					containerInstance.localScale = boneTransform.lossyScale;
 
 				if (string.IsNullOrEmpty( attachment.subBoneKey ))
 				{
