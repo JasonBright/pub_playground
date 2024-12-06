@@ -18,7 +18,7 @@ namespace CharactersModule
 		[Button, HideIf(nameof(specificOffset))]
 		public Attachment Attach(GameObject prefab, HumanBodyBones bone, string subBoneKey = "")
 		{
-			return Attach( prefab, bone, subBoneKey, Vector3.zero );
+			return Attach( prefab, bone, subBoneKey, prefab.transform.localPosition );
 		}
 
 		[Button, ShowIf(nameof(specificOffset))]
@@ -37,6 +37,7 @@ namespace CharactersModule
 			attachment.Bone = bone;
 			attachment.subBoneKey = subBoneKey;
 			attachment.Offset = offset;
+			attachment.transform.localScale = prefab.transform.localScale - (getAnimator().transform.lossyScale - Vector3.one);
 			if (Application.isPlaying)
 			{
 				attachments.Add( attachment );
@@ -87,8 +88,13 @@ namespace CharactersModule
 				var containerInstance = GetBoneContainerInstance( attachment.Bone );
 				containerInstance.position = boneTransform.position;
 				containerInstance.rotation = boneTransform.rotation;
-				if(attachment.CopyScale)
-					containerInstance.localScale = boneTransform.lossyScale;
+				//if (attachment.CopyScale)
+				{
+					containerInstance.localScale = new Vector3( 
+						containerInstance.localScale.x * (boneTransform.lossyScale.x / containerInstance.lossyScale.x),
+						containerInstance.localScale.y * (boneTransform.lossyScale.y / containerInstance.lossyScale.y),
+						containerInstance.localScale.z * (boneTransform.lossyScale.z / containerInstance.lossyScale.z) );
+				}
 
 				if (string.IsNullOrEmpty( attachment.subBoneKey ))
 				{

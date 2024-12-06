@@ -1,6 +1,6 @@
 {
   "name": "com.jb.charactersmodule",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "displayName": "Characters Module",
   "description": "Package provide characters module",
   "unity": "2021.3",
