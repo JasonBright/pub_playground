@@ -114,7 +114,7 @@ namespace CharactersModule
 
 				attachment.transform.localPosition = subBone.transform.localPosition + attachment.Offset;
 				attachment.transform.localRotation = subBone.transform.localRotation;
-				attachment.transform.localScale = subBone.transform.localScale;
+				//attachment.transform.localScale = subBone.transform.localScale;
 			}
 		}
 
