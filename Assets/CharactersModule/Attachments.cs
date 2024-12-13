@@ -37,7 +37,7 @@ namespace CharactersModule
 			attachment.Bone = bone;
 			attachment.subBoneKey = subBoneKey;
 			attachment.Offset = offset;
-			//attachment.transform.localScale = prefab.transform.localScale - (getAnimator().transform.lossyScale - Vector3.one);
+			attachment.transform.localScale = prefab.transform.localScale - (getAnimator().transform.lossyScale - Vector3.one);
 			if (Application.isPlaying)
 			{
 				attachments.Add( attachment );
@@ -90,10 +90,10 @@ namespace CharactersModule
 				containerInstance.rotation = boneTransform.rotation;
 				//if (attachment.CopyScale)
 				{
-					containerInstance.localScale = new Vector3(
-						boneTransform.localScale.x / containerInstance.parent.lossyScale.x,
-						boneTransform.localScale.y / containerInstance.parent.lossyScale.y,
-						boneTransform.localScale.z / containerInstance.parent.lossyScale.z );
+					containerInstance.localScale = new Vector3( 
+						containerInstance.localScale.x * (boneTransform.lossyScale.x / containerInstance.lossyScale.x),
+						containerInstance.localScale.y * (boneTransform.lossyScale.y / containerInstance.lossyScale.y),
+						containerInstance.localScale.z * (boneTransform.lossyScale.z / containerInstance.lossyScale.z) );
 				}
 
 				if (string.IsNullOrEmpty( attachment.subBoneKey ))
@@ -112,7 +112,7 @@ namespace CharactersModule
 					continue;
 				}
 
-				attachment.transform.localPosition = (subBone.transform.localPosition + attachment.Offset) * containerInstance.localScale.x;
+				attachment.transform.localPosition = subBone.transform.localPosition + attachment.Offset;
 				attachment.transform.localRotation = subBone.transform.localRotation;
 				//attachment.transform.localScale = subBone.transform.localScale;
 			}
