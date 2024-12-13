@@ -37,7 +37,8 @@ namespace CharactersModule
 			attachment.Bone = bone;
 			attachment.subBoneKey = subBoneKey;
 			attachment.Offset = offset;
-			attachment.transform.localScale = prefab.transform.localScale - (getAnimator().transform.lossyScale - Vector3.one);
+			if(bone == HumanBodyBones.Head) //temp 
+				attachment.transform.localScale = prefab.transform.localScale - (getAnimator().transform.lossyScale - Vector3.one);
 			if (Application.isPlaying)
 			{
 				attachments.Add( attachment );
