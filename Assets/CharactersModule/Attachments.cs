@@ -113,8 +113,8 @@ namespace CharactersModule
 					continue;
 				}
 
-				attachment.transform.localPosition = subBone.transform.localPosition + attachment.Offset;
-				attachment.transform.localRotation = subBone.transform.localRotation;
+				attachment.transform.position = subBone.transform.position + attachment.Offset;
+				attachment.transform.rotation = subBone.transform.rotation;
 				//attachment.transform.localScale = subBone.transform.localScale;
 			}
 		}
