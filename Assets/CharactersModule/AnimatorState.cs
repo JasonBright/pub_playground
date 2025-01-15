@@ -110,7 +110,7 @@ namespace CharactersModule
 			return this;
 		}
 
-		public PlayingAnimation Play()
+		public PlayingAnimation Play(float speed = 1)
 		{
 			if (animatorState.CanPlayNow())
 			{
@@ -120,6 +120,7 @@ namespace CharactersModule
 				}
 
 				state = animancer.Play( transition );
+				state.Speed = speed;
 				
 				if (state.Events( null, out var sequence ))
 				{
@@ -138,6 +139,11 @@ namespace CharactersModule
 				}
 			}
 			return this;
+		}
+
+		public void SetSpeed(float speed)
+		{
+			state.Speed = speed;
 		}
 
 		private void OnEndCallback()
