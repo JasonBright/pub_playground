@@ -35,6 +35,11 @@ namespace Plugins.JBrightBehaviourTree
 
 		public void Update()
 		{
+			if (Time.time > firstExceptionTime + 1)
+			{
+				ExceptionsPerSecond = 0;
+			}
+			
 			if (activeState != null)
 			{
 				activeState.MoveNext();
@@ -56,7 +61,18 @@ namespace Plugins.JBrightBehaviourTree
 			foreach (Node node in nodes)
 			{
 				diContainer.Inject( node.State );
+				node.State.ExceptionCatched += OnStateExceptionCached;
 			}
+		}
+
+		private void OnStateExceptionCached()
+		{
+			if (Time.time > firstExceptionTime + 1)
+			{
+				firstExceptionTime = Time.time;
+				ExceptionsPerSecond = 0;
+			}
+			ExceptionsPerSecond++;
 		}
 
 		private List<Node> GetAllNodes()
@@ -216,6 +232,9 @@ namespace Plugins.JBrightBehaviourTree
 		private LinkedList<Node> previousPath = new();
 		private LinkedList<Node> currentPath = new();
 		public State activeState;
+
+		public int ExceptionsPerSecond { get; private set; }
+		private float firstExceptionTime;
 
 		private BranchBuilder AddBranch(State state, LinkedList<Node> subNodes, int order = 0)
 		{

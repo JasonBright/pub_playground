@@ -13,6 +13,7 @@ namespace Plugins.JBrightBehaviourTree
 		protected List<IEnumerator> routines = new( 4 );
 		
 		private Dictionary<RoutineHandler, IEnumerator> routinesMap = new(4);
+		public event Action ExceptionCatched;
 		
 		public abstract bool CanExecute();
 		//todo: меня смущает название Execute. Будто бы этот метод будет вызываться при каждом апдейте во время выполнения
@@ -73,6 +74,7 @@ namespace Plugins.JBrightBehaviourTree
 #if UNITY_EDITOR
 			Debug.LogError( $"Editor Only: Suspend Exception at {this.GetType().Name} - {e}" );
 #endif
+			ExceptionCatched?.Invoke();
 		}
 	}
 

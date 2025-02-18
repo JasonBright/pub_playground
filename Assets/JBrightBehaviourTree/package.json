@@ -1,6 +1,6 @@
 {
   "name": "com.jb.jbrightbehaviortree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "JBright Behaviour tree",
   "description": "State machine + behaviour tree",
   "unity": "2021.3",
